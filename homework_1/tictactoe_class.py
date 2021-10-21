@@ -55,7 +55,7 @@ class Player:
         try:
             self.score = int(new_score)
         except ValueError:
-            print("Digits only!")
+            return "Digits only!"
 
 
 class TicTacToe:
