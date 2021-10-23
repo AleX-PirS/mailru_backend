@@ -142,7 +142,7 @@ class TicTacToe:
         for i in range(self.dim):
             if (board[i * self.dim:self.dim * (i + 1)].count('x') == self.dim
                     or board[i * self.dim:self.dim * (i + 1)].count('0') == self.dim):
-                return 1
+                return 1  # Win combination detected
         # Check columns
         for j in range(self.dim):
             buff = []
@@ -150,7 +150,7 @@ class TicTacToe:
                 buff.append(board[self.dim * i + j])
                 if (buff.count('x') == self.dim
                         or buff.count('0') == self.dim):
-                    return 1
+                    return 1  # Win combination detected
         # Check diagonals
         buff_poz = []
         buff_neg = []
@@ -161,11 +161,11 @@ class TicTacToe:
                     or buff_poz.count('0') == self.dim
                     or buff_neg.count('x') == self.dim
                     or buff_neg.count('0') == self.dim):
-                return 1
+                return 1  # Win combination detected
         # Check tie situation
         if ' ' not in board:
             self.win = -1
-            return 1000
+            return 1000  # Toe combination detected
 
     def input_checker(self, quad, board):
         """Input checker method"""
