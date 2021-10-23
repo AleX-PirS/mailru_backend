@@ -131,7 +131,7 @@ class TicTacToe:
         else:
             print('***TIE***')
         while True:
-            ans = input('Do you want to continue (yes or y)?: ').lower()
+            ans = input('"yes" or "y" if you want to continue: ').lower()
             if ans in ('y', 'yes'):
                 self.step_round += 1
                 self.win = 0
@@ -167,21 +167,30 @@ class TicTacToe:
             self.win = -1
             return 1000
 
+    def input_checker(self, quad, board):
+        """Input checker method"""
+        if quad.isdigit():
+            if int(quad) in range(1, self.dim ** 2 + 1):
+                if board[int(quad) - 1] != ' ':
+                    return 'This place is already pinned!'
+                else:
+                    board[int(quad) - 1] = \
+                        self.sign[(self.actual_turn + self.step_round) % 2]
+                    return 'done', board
+            else:
+                return 'Out of range!'
+        else:
+            return 'Only digit input!'
+
     def board_updater(self, board):
         """Method to update board after choosing quadrant"""
         while True:
             quad = input('> ').strip()
-            if quad.isdigit():
-                if int(quad) in range(1, self.dim ** 2 + 1):
-                    if self.board[int(quad) - 1] != ' ':
-                        print('This place is already pinned!')
-                    else:
-                        self.board[int(quad) - 1] = \
-                            self.sign[(self.actual_turn + self.step_round) % 2]
-                        self.win_checker(board)
-                        self.actual_turn += 1
-                        return board
-                else:
-                    print('Out of range!')
+            var = self.input_checker(quad, board)
+            if var[0] == 'done':
+                self.win_checker(board)
+                self.actual_turn += 1
+                break
             else:
-                print('Only digit input!')
+                print(var)
+        return var[1]
