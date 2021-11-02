@@ -16,11 +16,12 @@ while True:
     game.info(player1, player2)
     game.draw_board(game.board)
     game.board_updater(game.board)
-    if game.win_checker(game.board):
+    if game.win_checker(game.board)  in ('TOE', 'WIN'):
         game.stopper(player1, player2)
 """
 from os import system, name
 import sys
+from enum import Enum
 
 
 def clear():
@@ -61,6 +62,7 @@ class Player:
 class TicTacToe:
     """tic-tac-toe terminal game"""
     def __init__(self, dim=3):
+        self.Result = Enum('Result', 'TIE WIN NO_WIN')
         self.sign = ('x', '0')
         self.win = 0
         self.step_round = 0  # every round we change our players
@@ -142,7 +144,7 @@ class TicTacToe:
         for i in range(self.dim):
             if (board[i * self.dim:self.dim * (i + 1)].count('x') == self.dim
                     or board[i * self.dim:self.dim * (i + 1)].count('0') == self.dim):
-                return 1  # Win combination detected
+                return self.Result.WIN.name
         # Check columns
         for j in range(self.dim):
             buff = []
@@ -150,7 +152,7 @@ class TicTacToe:
                 buff.append(board[self.dim * i + j])
                 if (buff.count('x') == self.dim
                         or buff.count('0') == self.dim):
-                    return 1  # Win combination detected
+                    return self.Result.WIN.name
         # Check diagonals
         buff_poz = []
         buff_neg = []
@@ -161,11 +163,12 @@ class TicTacToe:
                     or buff_poz.count('0') == self.dim
                     or buff_neg.count('x') == self.dim
                     or buff_neg.count('0') == self.dim):
-                return 1  # Win combination detected
+                return self.Result.WIN.name
         # Check tie situation
         if ' ' not in board:
             self.win = -1
-            return 1000  # Toe combination detected
+            return self.Result.TIE.name
+        return self.Result.NO_WIN.name
 
     def input_checker(self, quad, board):
         """Input checker method"""
