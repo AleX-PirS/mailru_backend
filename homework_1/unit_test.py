@@ -9,28 +9,28 @@ class TestGame(unittest.TestCase):
     def test_win_checker(self):
 
         board = ['x', '0', '0', 'x', 'x', 'x', '0', '0', ' ']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'WIN')
 
         board = ['x', '0', '0', '0', 'x', '0', 'x', 'x', 'x']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'WIN')
 
         board = ['x', ' ', '0', ' ', 'x', ' ', ' ', '0', 'x']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'WIN')
 
         board = ['x', 'x', '0', ' ', '0', ' ', '0', ' ', ' ']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'WIN')
 
         board = ['x', '0', '0', 'x', ' ', ' ', 'x', ' ', ' ']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'WIN')
 
         board = ['0', '0', 'x', ' ', ' ', 'x', ' ', ' ', 'x']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'WIN')
 
         board = ['0', '0', 'x', 'x', 'x', '0', '0', 'x', '0']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 1000)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'TIE')
 
         board = ['0', ' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ']
-        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), None)
+        self.assertEqual(tictactoe_class.TicTacToe().win_checker(board), 'NO_WIN')
 
     def test_input_checker(self):
 
