@@ -16,6 +16,10 @@ class AttributeTest(unittest.TestCase):
         self.assertTrue(hasattr(self.obj, "custom_val"))
         self.assertTrue(hasattr(self.obj, "custom_line"))
 
+        self.assertEqual(self.obj.custom_val, 99)
+        self.assertEqual(self.obj.custom_x, 50)
+        self.assertEqual(self.obj.custom_line(), 100)
+
 
 if __name__ == "__main__":
     unittest.main()
