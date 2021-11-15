@@ -18,15 +18,18 @@ class SubAddTest(unittest.TestCase):
         self.assertEqual(type(self.m_l_1 - self.l_1), type(ModifiedList([])))
         self.assertEqual(type(self.l_1 + self.m_l_1), type(ModifiedList([])))
         self.assertEqual(type(self.m_l_1 + self.l_1), type(ModifiedList([])))
-        self.assertEqual(self.m_l_1 - self.m_l_2, ModifiedList([-1, -1, -1, -1]))
-        self.assertEqual(self.m_l_1 - self.m_l_empty, ModifiedList([2, 3, 4, 5]))
-        self.assertEqual(self.m_l_empty - self.m_l_1, ModifiedList([-2, -3, -4, -5]))
-        self.assertEqual(self.m_l_1 + self.m_l_2, ModifiedList([5, 7, 9, 11]))
-        self.assertEqual(self.m_l_1 + self.m_l_empty, ModifiedList([2, 3, 4, 5]))
-        self.assertEqual(self.l_empty - self.m_l_empty, ModifiedList([]))
-        self.assertEqual(self.l_1 + self.m_l_1, ModifiedList([3, 5, 7, 9]))
-        self.assertEqual(self.l_1 - self.m_l_1, ModifiedList([-1, -1, -1, -1]))
-        self.assertEqual(self.m_l_1 - self.l_1, ModifiedList([1, 1, 1, 1]))
+
+    def test_math(self):
+        self.assertEqual(list(self.m_l_1 - self.m_l_2), [-1, -1, -1, -1])
+        self.assertEqual(list(self.m_l_1 - self.m_l_empty), [2, 3, 4, 5])
+        self.assertEqual(list(self.m_l_empty - self.m_l_1), [-2, -3, -4, -5])
+        self.assertEqual(list(self.m_l_1 + self.m_l_2), [5, 7, 9, 11])
+        self.assertEqual(list(self.m_l_1 + self.m_l_empty), [2, 3, 4, 5])
+        self.assertEqual(list(self.l_empty - self.m_l_empty), [])
+        self.assertEqual(list(self.l_1 + self.m_l_1), [3, 5, 7, 9])
+        self.assertEqual(list(self.l_1 - self.m_l_1), [-1, -1, -1, -1])
+        self.assertEqual(list(self.m_l_1 - self.l_1), [1, 1, 1, 1])
+        self.assertEqual(list(self.l_empty - self.m_l_1), [-2, -3, -4, -5])
 
 
 class CompareTest(unittest.TestCase):
