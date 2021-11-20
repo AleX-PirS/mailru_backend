@@ -1,0 +1,18 @@
+{% block content %}
+  <h1>TEMPLATE</h1>
+  <p>Hello, {{name}}</p>
+  <p>Список страниц</p>
+  <ul>
+    <li>/mymaps/?city=...</li>
+    <li>/mymaps/map_create/?city=... lt=... lg=...</li>
+    <li>/mymaps/map_list/</li>
+  </ul>
+    <p>New urls</p>
+  <ul>
+    <li>/mymaps/slug:name/int:lt/int:lg/create/</li>
+    <li>/mymaps/int:city_id/detail/</li>
+    <li>/mymaps/all_cities/</li>
+    <li>/mymaps/int:id/slug:new_name/change_name/   (will return old and new versions)</li>
+    <li>/mymaps/int:id/delete_city/</li>
+  </ul>
+{% endblock %}
