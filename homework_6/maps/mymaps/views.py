@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from django.http.response import JsonResponse, HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http.response import JsonResponse
 from django.views.decorators.http import require_GET
-from random import randint
 
 from .models import Cities
 
@@ -14,9 +13,7 @@ def index(request):
     return render(request, 'index.html', ctx)
 
 
-def create(request, name='new_city', lt=0, lg=0):
-    # if not (isinstance(lt, int) or isinstance(lg, int)):
-    #     return HttpResponse(status=400)
+def create(request, name=None, lt=None, lg=None):
     new_city = Cities.objects.create(name=name, lt=lt, lg=lg)
     return JsonResponse(
         {
@@ -31,8 +28,9 @@ def create(request, name='new_city', lt=0, lg=0):
 
 
 @require_GET
-def detail(request, city_id=1):
-    city = Cities.objects.all().filter(pk=city_id)[0]
+def detail(request, city_id=None):
+    queryset = Cities.objects.all()
+    city = get_object_or_404(queryset, pk=city_id)
     return JsonResponse(
         {
             'city': city.name,
@@ -55,8 +53,9 @@ def all_cities(request):
     return JsonResponse({'cities': data})
 
 
-def change_name(request, city_id=1, new_name='changed_name'):
-    city = Cities.objects.get(pk=city_id)
+def change_name(request, city_id=None, new_name=None):
+    queryset = Cities.objects.all()
+    city = get_object_or_404(queryset, pk=city_id)
     old_name = city.name
     city.name = new_name
     city.save(update_fields=["name"])
@@ -81,8 +80,9 @@ def change_name(request, city_id=1, new_name='changed_name'):
     )
 
 
-def delete_city(request, city_id=1):
-    city = Cities.objects.get(pk=city_id)
+def delete_city(request, city_id=None):
+    queryset = Cities.objects.all()
+    city = get_object_or_404(queryset, pk=city_id)
     city.delete()
     return JsonResponse(
         {'Удален':
@@ -93,31 +93,3 @@ def delete_city(request, city_id=1):
             }
         }
     )
-
-
-def map_detail(request):
-    if request.method == 'POST':
-        return HttpResponse(status=405)
-    city = request.GET.get('city')
-    if city is None:
-        return JsonResponse({'City': 'No city'})
-    return JsonResponse({city: {'lt': randint(-90, 90), 'lg': randint(-180, 180)}})
-
-
-def map_create(request):
-    if request.method != 'POST':
-        return HttpResponse(status=405)
-
-    city = request.GET.get('city')
-    lt = request.GET.get('lt')
-    lg = request.GET.get('lg')
-    if None in (city, lt, lg):
-        return HttpResponse(status=400)
-    else:
-        return JsonResponse({city: {'lt': lt, 'lg': lg}})
-
-
-def map_list(request):
-    if request.method == 'POST':
-        return HttpResponse(status=405)
-    return JsonResponse({'MSC': {'lt': 55.7334, 'lg': 37.6548}, 'TMN': {'lt': 53.1312, 'lg': 65.5483}})
